@@ -10,11 +10,11 @@ function Login(props) {
         <input type="email" placeholder="Your email" autoComplete="off" />
         <input type="password" placeholder="Your password" autoComplete="off" />
         <div className="flex mt3">
-          <button type="submit" className="button pointer mr2">
+          <button type="" className="button pointer mr2">
             Submit
           </button>
-          <button type="submit" className="button pointer" 
-          onClick={() => setLogin(previousLoginState => !previousLoginState)}>
+          <button type="" className="button pointer" 
+          onClick={(e) => { e.preventDefault(); return setLogin(previousLoginState => !previousLoginState)}}>
             {login ? "need to create an account?": "already have an account?"}
           </button>
         </div>
