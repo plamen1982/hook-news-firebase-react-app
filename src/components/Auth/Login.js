@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useFormValidation from './useFormValidation';
-
+import validateLogin from './validateLogin';
 
 //Will provide the INITIAL_STATE to our custom hook(useFormValidation), so we can have reusability to the custom hook
 const INITIAL_STATE = {
@@ -9,8 +9,8 @@ const INITIAL_STATE = {
   password: ""
 }
 
-function Login(props) {
-  const { handleChange, handleSubmit, values } = useFormValidation(INITIAL_STATE);
+function Login() {
+  const { handleSubmit, handleChange, handleBlur, values, errors, isSubmitting } = useFormValidation(INITIAL_STATE, validateLogin);
   const [login, setLogin] = useState(true);
   return (
     <div>
@@ -22,15 +22,23 @@ function Login(props) {
           name="name"
           type="text" placeholder="Your name" autoComplete="off" />}
         <input 
+          onBlur={handleBlur}
           onChange={handleChange}
           value={values.email}
           name="email"
-          type="email" placeholder="Your email" autoComplete="off" />
+          className={errors.email && 'error-input'}
+          type="email" placeholder="Your email" autoComplete="off" 
+        />
+        {errors.email && <p className="error-text">{errors.email}</p>}
         <input 
+          onBlur={handleBlur}
           onChange={handleChange}   
           value={values.password}
           name="password"     
-          type="password" placeholder="Your password" autoComplete="off" />
+          className={errors.password && 'error-input'}
+          type="password" placeholder="Your password" autoComplete="off" 
+        />
+        {errors.password && <p className="error-text">{errors.password}</p>}
         <div className="flex mt3">
           <button type="" className="button pointer mr2">
             Submit
