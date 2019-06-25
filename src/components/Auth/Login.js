@@ -40,7 +40,10 @@ function Login() {
         />
         {errors.password && <p className="error-text">{errors.password}</p>}
         <div className="flex mt3">
-          <button type="" className="button pointer mr2">
+          <button type="submit" className="button pointer mr2" 
+            disabled={isSubmitting}
+            style={{ background: isSubmitting ? "grey": "orange" }}
+          >
             Submit
           </button>
           <button type="" className="button pointer" 
