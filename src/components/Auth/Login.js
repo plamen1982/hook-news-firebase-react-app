@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   password: ""
 }
 
-function Login() {
+function Login(props) {
   const { handleSubmit, handleChange, handleBlur, values, errors, isSubmitting } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
   const [login, setLogin] = useState(true);
   const [firebaseError, setFirebaseError] = useState(null);
@@ -19,10 +19,11 @@ function Login() {
     try {
       const response = login 
       ? await firebase.login(email, password)
-      : await firebase.register(name, email, password)
-      console.log({ response });
+      : await firebase.register(name, email, password);
+      console.log(response);
+      props.history.push('/');
     } catch(error) {
-      console.error('Authentication Error', error)
+      console.error('Authentication Error', error);
       setFirebaseError(error.message);
     }
   }
