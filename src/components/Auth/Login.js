@@ -14,6 +14,7 @@ function Login(props) {
   const { handleSubmit, handleChange, handleBlur, values, errors, isSubmitting } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
   const [login, setLogin] = useState(true);
   const [firebaseError, setFirebaseError] = useState(null);
+
   async function authenticateUser() {
     const { name, email, password } = values;
     try {

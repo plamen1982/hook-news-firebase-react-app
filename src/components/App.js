@@ -7,10 +7,14 @@ import SearchLinks from './Link/SearchLinks';
 import LinkDetail from './Link/LinkDetail';
 import LinkList from './Link/LinkList';
 import Header from './Header';
+import useAuth from './Auth/useAuth';
+import firebase, { FirebaseContext } from '../firebase';
 
 function App() {
+  const user = useAuth();
   return (
     <Router>
+      <FirebaseContext.Provider value={{ user, firebase }}>
         <div className="app-container">
             <Header />
             <div className="route-container">
@@ -26,6 +30,7 @@ function App() {
               </Switch>
             </div>
         </div>
+      </FirebaseContext.Provider>
     </Router>
   );
 }
