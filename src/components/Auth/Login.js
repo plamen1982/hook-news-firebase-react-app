@@ -13,13 +13,18 @@ const INITIAL_STATE = {
 function Login() {
   const { handleSubmit, handleChange, handleBlur, values, errors, isSubmitting } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
   const [login, setLogin] = useState(true);
-
+  const [firebaseError, setFirebaseError] = useState(null);
   async function authenticateUser() {
     const { name, email, password } = values;
-    const response = login 
+    try {
+      const response = login 
       ? await firebase.login(email, password)
       : await firebase.register(name, email, password)
       console.log({ response });
+    } catch(error) {
+      console.error('Authentication Error', error)
+      setFirebaseError(error.message);
+    }
   }
   return (
     <div>
@@ -48,6 +53,7 @@ function Login() {
           type="password" placeholder="Your password" autoComplete="off" 
         />
         {errors.password && <p className="error-text">{errors.password}</p>}
+        {firebaseError && <p className="error-text">{firebaseError}</p>}
         <div className="flex mt3">
           <button type="submit" className="button pointer mr2" 
             disabled={isSubmitting}
