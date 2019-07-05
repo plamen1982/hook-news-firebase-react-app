@@ -10,7 +10,6 @@ class Firebase {
     }
 
     async register(name, email, password) {
-        debugger
         const newUser = await this.auth.createUserWithEmailAndPassword(
             email,
             password,
@@ -26,6 +25,10 @@ class Firebase {
 
     async logout() {
         await this.auth.signOut();
+    }
+
+    async resetPassword(email) {
+        await this.auth.sendPasswordResetEmail(email);
     }
 }
 

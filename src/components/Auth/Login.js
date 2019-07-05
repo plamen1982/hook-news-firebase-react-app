@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import useFormValidation from './useFormValidation';
 import validateLogin from './validateLogin';
 import firebase from '../../firebase';
+import { Link } from 'react-router-dom'
 
 //Will provide the INITIAL_STATE to our custom hook(useFormValidation), so we can have reusability to the custom hook
 const INITIAL_STATE = {
@@ -18,10 +19,9 @@ function Login(props) {
   async function authenticateUser() {
     const { name, email, password } = values;
     try {
-      const response = login 
+      login 
       ? await firebase.login(email, password)
       : await firebase.register(name, email, password);
-      console.log(response);
       props.history.push('/');
     } catch(error) {
       console.error('Authentication Error', error);
@@ -69,6 +69,9 @@ function Login(props) {
           </button>
         </div>
       </form>
+      <div className="forgot-password">
+          <Link to="/forgot">Forgot Password</Link>
+      </div>
     </div>
   );
 }
