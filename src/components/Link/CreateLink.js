@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import useFormValidation from '../Auth/useFormValidation';
 import validateCreateLink from '../Auth/validations/validateCreateLink';
+import FirebaseContext from '../../firebase/context';
 
 const INITIAL_STATE = {
   description: '',
@@ -8,15 +9,34 @@ const INITIAL_STATE = {
 }
 
 function CreateLink(props) {
+  const { firebase: { db }, user } = useContext(FirebaseContext);
+
+
   const { 
     handleSubmit, 
     handleChange, 
-    handleBlur, 
     values, 
-    errors, 
-    isSubmitting } = useFormValidation(INITIAL_STATE, validateCreateLink, handleSubmitLink);
+    errors
+    } = useFormValidation(INITIAL_STATE, validateCreateLink, handleSubmitLink);
     function handleSubmitLink() {
-      console.log('submited');
+      if(!user) {
+        props.history.push('/login');
+      } else {
+        const { description, url } = values;
+        const newLink = {
+          url,
+          description,
+          postedBy: {
+            id: user.uid,
+            name: user.displayName
+          },
+          votes: [],
+          comments: [],
+          created: Date.now()
+        }
+        db.collection('links').add(newLink);
+        props.history.push('/');
+      }
     }
 
   return (
@@ -37,7 +57,7 @@ function CreateLink(props) {
         name="url"
         placeholder="The url for the link"
         autoComplete="off"
-        type="text"
+        type="url"
         className={errors.url && 'error-input'}
       />
       {errors.url && <p className='error-text'>{errors.url}</p>}
