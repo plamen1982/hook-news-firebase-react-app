@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import useFormValidation from './useFormValidation';
-import validateLogin from './validateLogin';
-import firebase from '../../firebase';
+import validateLogin from './validations/validateLogin';
+import { FirebaseContext } from '../../firebase';
 import { Link } from 'react-router-dom'
 
 //Will provide the INITIAL_STATE to our custom hook(useFormValidation), so we can have reusability to the custom hook
@@ -12,10 +12,16 @@ const INITIAL_STATE = {
 }
 
 function Login(props) {
-  const { handleSubmit, handleChange, handleBlur, values, errors, isSubmitting } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
+  const { 
+    handleSubmit, 
+    handleChange, 
+    handleBlur, 
+    values, 
+    errors, 
+    isSubmitting } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
   const [login, setLogin] = useState(true);
   const [firebaseError, setFirebaseError] = useState(null);
-
+  const { firebase } = useContext(FirebaseContext);
   async function authenticateUser() {
     const { name, email, password } = values;
     try {

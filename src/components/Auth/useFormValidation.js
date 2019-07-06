@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
-
+/**
+ * @function useFormValidation, custom hook
+ * @param initialState, object with the initialState of the hook 
+ * @param validate, function with the validation for the initialState object
+ * @param authenticate, function that make authenticate functionality to the initialState object
+ * @returns {object}, with properties handleSubmit - function, handleChange - function
+ * handleBlur - function, values - object, errors - object, isSubmitting - boolean
+ */
 function useFormValidation(initialState, validate, authenticate) {
-    const[values, setValues] = useState(initialState);
+    const [values, setValues] = useState(initialState);
     const [errors, setErrors] = useState({});
     const [isSubmitting, setSubmitting] = useState(false);
 
