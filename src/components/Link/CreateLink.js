@@ -7,14 +7,13 @@ const INITIAL_STATE = {
   url: ''
 }
 
-function CreateLink(props) {
+function CreateLink() {
   const { 
     handleSubmit, 
     handleChange, 
-    handleBlur, 
     values, 
-    errors, 
-    isSubmitting } = useFormValidation(INITIAL_STATE, validateCreateLink, handleSubmitLink);
+    errors
+    } = useFormValidation(INITIAL_STATE, validateCreateLink, handleSubmitLink);
     function handleSubmitLink() {
       console.log('submited');
     }
