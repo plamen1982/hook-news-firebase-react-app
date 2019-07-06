@@ -11,7 +11,6 @@ const INITIAL_STATE = {
 function CreateLink(props) {
   const { firebase: { db }, user } = useContext(FirebaseContext);
 
-
   const { 
     handleSubmit, 
     handleChange, 
