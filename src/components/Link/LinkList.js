@@ -1,8 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FirebaseContext from '../../firebase/context';
+import LinkItem from './LinkItem';
+
 function LinkList(props) {
   const { firebase: { db } } = useContext(FirebaseContext);
-
+  const [links, setLinks] = useState([])
   useEffect(() => {
     getLinks();
   }, []);
@@ -12,14 +14,16 @@ function LinkList(props) {
   }
 
   function handleSnapshotLinks(snapshotLinks) {
-    debugger;
     const links = snapshotLinks.docs.map(link => {
       return { id: link.id, ...link.data() }
     });
-    console.log({ links });
+    setLinks(links);
   }
+
   return (
-    <div>LInks</div>
+    <div>
+      {links.map((link, index) => <LinkItem key={link.id} showCount={true} link={link} index={index + 1} />)}
+    </div>
   );
 }
 
