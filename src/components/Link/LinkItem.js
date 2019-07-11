@@ -24,6 +24,22 @@ function LinkItem({ link, index, showCount, history }) {
     }
   }
 
+  function handleDelete() {
+    const refLink = db.collection('links').doc(link.id);
+    refLink.delete().then(() => {
+      console.log(`Link ${link.id} deleted`);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  const isUserLogedIn = user ? true : false;
+  let isLinkOwnedByCurrUser = false;
+
+  if(isUserLogedIn) {
+    isLinkOwnedByCurrUser = link.postedBy.id === user.uid;
+  }
+
   return (
     <div className="flex items-start mt2">
       <div className="flex items-center">
@@ -41,6 +57,14 @@ function LinkItem({ link, index, showCount, history }) {
           {link.comments.length > 0
             ? `${link.comments.length} comments`
             : "discuss"
+          }
+          {
+            isLinkOwnedByCurrUser && (
+              <>{" | "}
+                <span className=".delete-button" onClick={handleDelete}>delete</span>
+              </>
+              
+            )   
           }
         </div>
       </div>
