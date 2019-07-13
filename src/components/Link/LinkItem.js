@@ -56,14 +56,13 @@ function LinkItem({ link, index, showCount, history }) {
           <Link to={`/link/${link.id}`}></Link>
           {link.comments.length > 0
             ? `${link.comments.length} comments`
-            : "discuss"
+            : <span className="link">discuss</span>
           }
           {
             isLinkOwnedByCurrUser && (
               <>{" | "}
-                <span className=".delete-button" onClick={handleDelete}>delete</span>
+                <span className="delete-button" onClick={handleDelete}>delete</span>
               </>
-              
             )   
           }
         </div>

@@ -26,12 +26,12 @@ function Login(props) {
     const { name, email, password } = values;
     try {
       login 
-      ? await firebase.login(email, password)
-      : await firebase.register(name, email, password);
+        ? await firebase.login(email, password)
+        : await firebase.register(name, email, password);
       props.history.push('/');
     } catch(error) {
-      console.error('Authentication Error', error);
-      setFirebaseError(error.message);
+        console.error('Authentication Error', error);
+        setFirebaseError(error.message);
     }
   }
   return (
@@ -63,12 +63,12 @@ function Login(props) {
         {errors.password && <p className="error-text">{errors.password}</p>}
         {firebaseError && <p className="error-text">{firebaseError}</p>}
         <div className="flex mt3">
-          <button type="submit" className="button pointer mr2" 
+          <button 
+            type="submit" 
+            className="button pointer mr2" 
             disabled={isSubmitting}
             style={{ background: isSubmitting ? "grey": "orange" }}
-          >
-            Submit
-          </button>
+          >Submit</button>
           <button type="" className="button pointer" 
           onClick={(e) => { e.preventDefault(); return setLogin(previousLoginState => !previousLoginState)}}>
             {login ? "need to create an account?": "already have an account?"}
