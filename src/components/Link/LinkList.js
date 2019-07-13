@@ -14,7 +14,8 @@ function LinkList(props) {
   function getLinks() {
     db.collection('links')
     .orderBy('created', 'desc')
-    .onSnapshot(handleSnapshotLinks);
+    .get()
+    .then(snapshotLinks => handleSnapshotLinks(snapshotLinks));
   }
 
   function handleSnapshotLinks(snapshotLinks) {
@@ -29,7 +30,7 @@ function LinkList(props) {
       return links;
     }
    const topLinks = [...links].sort((link1, link2) => link2.votes.length - link1.votes.length);
-   return topLinks;
+   return topLinks
   }
 
   return (
