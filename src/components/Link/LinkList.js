@@ -14,8 +14,7 @@ function LinkList(props) {
   function getLinks() {
     db.collection('links')
     .orderBy('created', 'desc')
-    .get()
-    .then(snapshotLinks => handleSnapshotLinks(snapshotLinks));
+    .onSnapshot(handleSnapshotLinks);
   }
 
   function handleSnapshotLinks(snapshotLinks) {
