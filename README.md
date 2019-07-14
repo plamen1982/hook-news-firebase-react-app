@@ -1,5 +1,12 @@
+Link to the project [https://hooks-news-application.firebaseapp.com]
 ##Technics used in the project:
-
+### Deploying with Firebase
+    1.In the console -> yarn run build or npm run build- build project for deploy
+    2.In the console -> firebase init hosting - then:
+        2.1 What do you want to use as your public directory? Write -> build
+        2.2 Configure as a single-page app - answer is Yes write -> Y
+        2.3 File build/index.html already exists. Overwrite -answer is No write -> N
+        2.4 Finaly deploying -> write in the console -> firebase deploy
 ### Working with Firebase
     - Authentication with Firebase(Login, Logout, Forget password and then change password with email link)
     - CRUD operations with Firebase API
