@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import FirebaseContext from '../../firebase/context';
 import LinkItem from './LinkItem';
 import { LINKS_PER_PAGE } from '../../utils';
+import axios from 'axios';
 
 function LinkList(props) {
   const { firebase: { db } } = useContext(FirebaseContext);
@@ -34,6 +35,17 @@ function LinkList(props) {
           .startAfter(cursor.created)
           .limit(LINKS_PER_PAGE )
           .onSnapshot(handleSnapshotLinks);
+    } else {
+      const offset = page * LINKS_PER_PAGE - LINKS_PER_PAGE;
+      axios.get(`https://us-central1-hooks-news-application.cloudfunctions.net/linksPagination?offset=${offset}`)
+      .then(respose => {
+        const links = respose.data;
+        const lastLink = links[links.length - 1];
+        setLinks(links);
+        setCursor(lastLink);
+      })
+     //unsubscribe() expect a function, so we just return function that return empty object 
+      return () => {}
     }
   }
 
@@ -66,7 +78,7 @@ function LinkList(props) {
   //  return topLinks
   // }
   
-  const pageIndex = page ? (page - 1) * LINKS_PER_PAGE + 1 : 0;
+  const pageIndex = page ? (page - 1) * LINKS_PER_PAGE + 1 : 1;
   return (
     <div>
       {links.map((link, index) => (
@@ -74,7 +86,7 @@ function LinkList(props) {
           key={link.id} 
           showCount={true} 
           link={link} 
-          index={pageIndex + index + 1} 
+          index={pageIndex + index} 
         />
       ))}
       {isNewPage && (

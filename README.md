@@ -1,4 +1,5 @@
 ##Technics used in the project:
+
 ### Working with Firebase
     - Authentication with Firebase(Login, Logout, Forget password and then change password with email link)
     - CRUD operations with Firebase API
@@ -13,6 +14,7 @@
             -db.collection('collectionName').onSnapshot(callbackFunc) - returns in a callback function a live connected object with the whole collection
             -db.collection('collectionName').get().then() - returns a promise with the current version of the collection in the Firestore
     -const unsubscribe = return firebase.db.collection('nameCollection') - when we execute the unsubscribe() method we not longer listen for this collection and not making any updates, should be used in conjuction with useEffect hook in the return;
+    -deployng serverless function -> firebase deploy --only functions
 ### Working with React Hooks
     - Custom hook - reused in different components with functionality: validation different forms with the help of custom functions pass as argument to the hook
     - Authenticate operations on forms(if user is not logged in redirect to login page)
