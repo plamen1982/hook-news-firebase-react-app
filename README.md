@@ -20,6 +20,12 @@ Link to the project [https://hooks-news-application.firebaseapp.com]
             -db.collections('collectionName').add(documentId) - fetch one document from collection
             -db.collection('collectionName').onSnapshot(callbackFunc) - returns in a callback function a live connected object with the whole collection
             -db.collection('collectionName').get().then() - returns a promise with the current version of the collection in the Firestore
+            -db.collection('collectionName)
+                .orderBy('created', 'desc') // order query by field 'created' in descending order
+                .startAfter(cursor.created) // startAfter() is used for pagination, you should point the from which value                             //of field the pagination should start                                    
+                .limit(LINKS_PER_PAGE )     // limit the records that will be fetched
+                .onSnapshot(handleSnapshotLinks);
+
     -const unsubscribe = return firebase.db.collection('nameCollection') - when we execute the unsubscribe() method we not longer listen for this collection and not making any updates, should be used in conjuction with useEffect hook in the return;
     -deployng serverless function -> firebase deploy --only functions
 ### Working with React Hooks
@@ -28,7 +34,6 @@ Link to the project [https://hooks-news-application.firebaseapp.com]
     - useContext for global state for the whole app(for firebase API object and user(if the user is not logged in this object is empty))
     - useEffect for fetching data and side effects when the hook work like componentDidMount(), observe state of state variables in the current component, also used for subscribing(when component is mount) and unsubscribing(when component is unmounted) to Firebase references 
     - useState for state variables and then use it in the UI template(for showing different forms, for pending data that will be fetched, for list data, for sorted data(ex: updatedLinkList)) that is different from the original fetched array
-    -
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
