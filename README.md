@@ -12,6 +12,7 @@
             -db.collections('collectionName').add(documentId) - fetch one document from collection
             -db.collection('collectionName').onSnapshot(callbackFunc) - returns in a callback function a live connected object with the whole collection
             -db.collection('collectionName').get().then() - returns a promise with the current version of the collection in the Firestore
+    -const unsubscribe = return firebase.db.collection('nameCollection') - when we execute the unsubscribe() method we not longer listen for this collection and not making any updates, should be used in conjuction with useEffect hook in the return;
 ### Working with React Hooks
     - Custom hook - reused in different components with functionality: validation different forms with the help of custom functions pass as argument to the hook
     - Authenticate operations on forms(if user is not logged in redirect to login page)
