@@ -19,7 +19,9 @@ Link to the project [https://hooks-news-application.firebaseapp.com]
             -db.collections('collectionName').add(documentObject) - add one document to the collection
             -db.collections('collectionName').add(documentId) - fetch one document from collection
             -db.collection('collectionName').onSnapshot(callbackFunc) - returns in a callback function a live connected object with the whole collection
-            -db.collection('collectionName').get().then() - returns a promise with the current version of the collection in the Firestore
+            -db.collection('collectionName').get().then(snapShots => {
+                snapShots(doc => { console.log(`${doc.id}`, doc.data()) })
+            }) - returns a promise with the current version of the collection in the Firestore
             -db.collection('collectionName)
                 .orderBy('created', 'desc') // order query by field 'created' in descending order
                 .startAfter(cursor.created) // startAfter() is used for pagination, you should point the from which value                             //of field the pagination should start                                    
